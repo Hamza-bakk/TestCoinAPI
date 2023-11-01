@@ -1,9 +1,19 @@
-{% extends "layout.html" %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Application de Suivi de Cryptomonnaie</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.0.0/flowbite.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.0.0/flowbite.min.css"  rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='/css/styles.css') }}">
+</head>
+<body>
+
+    {% include "navbar.html" %}
+
+    {% include "footer.html" %}
+
+   <h1> Bonjour </h1>
 
 
-{% block content %}
-    <div>
-        <h1>Bienvenue dans l'Application de Suivi de Cryptomonnaie</h1>
-    </div>
-    <!-- Le contenu spécifique à la page d'accueil va ici -->
-{% endblock %}
+</body>
+</html>
