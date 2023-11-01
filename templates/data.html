@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Informations Crypto-monnaies</title>
+</head>
+<body>
+    <h1>Taux de change</h1>
+    <table>
+        <tr>
+            <th>Crypto-monnaie</th>
+            <th>Cours Crypto-monnaie(USD)</th>
+        </tr>
+        {% for asset, rate in exchange_rates.items() %}
+            <tr>
+                <td>{{ asset }}</td>
+                <td>{{ "{:,.2f}".format(rate) }}</td>
+
+            </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
