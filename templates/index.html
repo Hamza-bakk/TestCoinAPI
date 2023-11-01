@@ -6,9 +6,14 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.0.0/flowbite.min.css"  rel="stylesheet" />
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='/css/styles.css') }}">
 </head>
+
 <body>
 
     {% include "navbar.html" %}
+    <div class="background-img-container">
+        <img src="{{ url_for('static', filename='images/btc.png') }}" class="background-img" alt="BTC Image">
+        <div class="text-overlay">Application de Suivi de Cryptomonnaie</div>
+    </div>
 
     {% include "data.html" %}
 
