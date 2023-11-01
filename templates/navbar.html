@@ -5,14 +5,16 @@
 </head>
 <body>
     <nav class="navbar">
-        <div class="navbar-logo">HB</div>
+        <a href="{{ url_for('accueil') }}" class="navbar-logo">HB</a>
         <ul class="navbar-links">
             <li><a href="#">Mes Alertes</a></li>
             <li><a href="#">Qui sommes-nous</a></li>
-            <li><a href="{{ url_for('login') }}">Login</a></li>
+            {% if current_user.is_authenticated %}
+                <li><a href="{{ url_for('logout') }}">Se déconnecter</a></li>
+            {% else %}
+                <li><a href="{{ url_for('login') }}">Login</a></li>
+            {% endif %}
         </ul>
     </nav>
 </body>
 </html>
-
-  
