@@ -125,6 +125,7 @@ def crypto_portfolio():
 
         response = requests.get(url, headers=headers)
         data = response.json()
+        print(data)
 
         if 'rate' in data:
             exchange_rates[asset] = data['rate']

@@ -9,6 +9,8 @@
         <ul class="navbar-links">
             <li><a href="#">Mes Alertes</a></li>
             <li><a href="#">Qui sommes-nous</a></li>
+        </ul>
+        <ul class="navbar-links-bis">
             {% if current_user.is_authenticated %}
                 <li><a href="{{ url_for('logout') }}">Se déconnecter</a></li>
             {% else %}
