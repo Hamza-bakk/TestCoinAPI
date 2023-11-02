@@ -7,22 +7,30 @@
 <body>
     {% include "navbar.html" %}
     <h1 class="mesalertes-title">Mes Alertes</h1>
-
+    
     <h2 class="mesalertes-section-title">Alertes Ouvertes</h2>
     <ul class="mesalertes-list">
         {% for alert in open_alerts %}
-            <li class="mesalertes-list-item mesalertes-open-alert">
-                {{ alert.asset }} - Prix cible : {{ alert.target_price }} (ouvert)
-            </li>
+        <li class="mesalertes-list-item mesalertes-open-alert">
+            {{ alert.asset }} - Prix cible : {{ alert.target_price }} (ouvert)
+            <form method="POST" action="{{ url_for('edit_alert', alert_id=alert.id) }}">
+                <button type="submit" class="btn btn-primary">Éditer</button>
+            </form>
+            <form method="POST" action="{{ url_for('delete_alert', alert_id=alert.id) }}">
+                <input type="hidden" name="_method" value="DELETE">
+                <button type="submit" class="btn btn-danger">Supprimer</button>
+            </form>
+        </li>
         {% endfor %}
     </ul>
-
+    
+    
     <h2 class="mesalertes-section-title">Alertes Fermées</h2>
     <ul class="mesalertes-list">
         {% for alert in closed_alerts %}
-            <li class="mesalertes-list-item mesalertes-closed-alert">
-                {{ alert.asset }} - Prix cible : {{ alert.target_price }} (fermé)
-            </li>
+        <li class="mesalertes-list-item mesalertes-closed-alert">
+            {{ alert.asset }} - Prix cible : {{ alert.target_price }} (fermé)
+        </li>
         {% endfor %}
     </ul>
     {% include "footer.html" %}

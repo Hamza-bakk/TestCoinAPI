@@ -4,7 +4,7 @@ from flask_sqlalchemy import SQLAlchemy
 from wtforms.validators import InputRequired, Length, Email, ValidationError
 from flask_login import UserMixin, LoginManager, login_user, login_required, logout_user, current_user
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField
+from wtforms import StringField, PasswordField, SubmitField, FloatField
 from wtforms.validators import InputRequired, Length, ValidationError
 from flask_bcrypt import Bcrypt
 import requests
@@ -100,6 +100,11 @@ class LoginForm(FlaskForm):
 
     submit = SubmitField('Login')
     
+class EditAlertForm(FlaskForm):
+    asset = StringField('Actif', validators=[InputRequired()])
+    target_price = FloatField('Prix cible', validators=[InputRequired()])
+
+    
 @app.route("/")
 def accueil():
     exchange_rates = crypto_portfolio()
@@ -180,6 +185,36 @@ def mes_alertes():
     open_alerts = Alert.query.filter_by(user_id=user.id, is_open=True).all()
     closed_alerts = Alert.query.filter_by(user_id=user.id, is_open=False).all()
     return render_template('mes_alertes.html', open_alerts=open_alerts, closed_alerts=closed_alerts)
+
+
+@app.route('/edit_alert/<int:alert_id>', methods=['GET', 'POST'])
+@login_required
+def edit_alert(alert_id):
+    alert = Alert.query.get(alert_id)
+    if not alert:
+        return redirect(url_for('mes_alertes'))
+
+    form = EditAlertForm()
+    if form.validate_on_submit():
+        alert.asset = form.asset.data
+        alert.target_price = form.target_price.data
+        db.session.commit()
+        return redirect(url_for('mes_alertes'))
+
+    form.asset.data = alert.asset
+    form.target_price.data = alert.target_price
+    return render_template('edit_alert.html', form=form, alert=alert)
+
+
+@app.route('/delete_alert/<int:alert_id>', methods=['POST'])
+@login_required
+def delete_alert(alert_id):
+    alert = Alert.query.get(alert_id)
+    if alert:
+        db.session.delete(alert)
+        db.session.commit()
+    return redirect(url_for('mes_alertes'))
+
 
 
 api_key = "CA89529B-FA3C-44B1-B65D-3BED3D6AAE70"
