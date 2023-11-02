@@ -1,7 +1,8 @@
 from flask import Flask, render_template, url_for, redirect
+from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
-from flask_login import UserMixin, LoginManager, login_user, login_required, logout_user, current_user
-from flask_login import LoginManager
+from wtforms.validators import InputRequired, Length, Email, ValidationError
+from flask_login import UserMixin, LoginManager, login_user, login_required, logout_user
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField
 from wtforms.validators import InputRequired, Length, ValidationError
@@ -18,6 +19,7 @@ app.config['SECRET_KEY'] = 'thisisasecretkey'
 
 login_manager = LoginManager(app)
 bcrypt = Bcrypt(app)
+migrate = Migrate(app, db)
 
 login_manager.login_view = "login"
 
@@ -25,6 +27,7 @@ login_manager.login_view = "login"
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(20), nullable=False, unique=True)
+    email = db.Column(db.String(120), nullable=False, unique=True) 
     password = db.Column(db.String(80), nullable=False)
     
 login_manager = LoginManager(app)
@@ -38,6 +41,9 @@ def load_user(user_id):
 class RegisterForm(FlaskForm):
     username = StringField(validators=[InputRequired(), Length(min=4, max=20)], 
     render_kw={"placeholder": "Username"})
+    
+    email = StringField(validators=[InputRequired(), Email(), Length(max=120)], 
+    render_kw={"placeholder": "Email"})  # Champ email ajouté
 
     password = PasswordField(validators=[InputRequired(), Length(min=8, max=20)], 
     render_kw={"placeholder": "Password"})
@@ -49,6 +55,11 @@ class RegisterForm(FlaskForm):
         if existing_user_username:
             raise ValidationError(
                 'That username already exists. Please choose a different one.')
+    
+    def validate_email(self, email):
+        existing_user_email = User.query.filter_by(email=email.data).first()
+        if existing_user_email:
+            raise ValidationError('That email address is already registered. Please choose a different one.')
 
 
 class LoginForm(FlaskForm):
@@ -92,7 +103,7 @@ def register():
 
     if form.validate_on_submit():
         hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
-        new_user = User(username=form.username.data, password=hashed_password)
+        new_user = User(username=form.username.data, email=form.email.data, password=hashed_password)  # Ajout de l'email
         db.session.add(new_user)
         db.session.commit()
         return redirect(url_for('login'))
