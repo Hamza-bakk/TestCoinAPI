@@ -68,10 +68,13 @@ body {
     color: white;
     text-align: center;
     padding: 20px;
-    position: fixed;
+    position: absolute;
     bottom: 0;
     width: 100%;
+    transform: translateY(100%);
+    transition: transform 0.3s ease; /* Animation pour une transition douce */
 }
+
 
 
 
