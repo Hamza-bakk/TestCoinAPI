@@ -1,25 +1,36 @@
-from flask import Flask, render_template, url_for, redirect
+from flask import Flask, render_template, url_for, redirect, request
 from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
 from wtforms.validators import InputRequired, Length, Email, ValidationError
-from flask_login import UserMixin, LoginManager, login_user, login_required, logout_user
+from flask_login import UserMixin, LoginManager, login_user, login_required, logout_user, current_user
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField
 from wtforms.validators import InputRequired, Length, ValidationError
 from flask_bcrypt import Bcrypt
 import requests
-
+from flask import jsonify
+import redis
 
 app = Flask(__name__)
 
 
+
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
-db = SQLAlchemy(app)
+db = SQLAlchemy()
+db.init_app(app)
+
 app.config['SECRET_KEY'] = 'thisisasecretkey'
+
+
+# Créez une instance de connexion Redis
+redis_client = redis.StrictRedis(host='localhost', port=5000, db=0)
+
+
 
 login_manager = LoginManager(app)
 bcrypt = Bcrypt(app)
 migrate = Migrate(app, db)
+
 
 login_manager.login_view = "login"
 
@@ -30,6 +41,24 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(120), nullable=False, unique=True) 
     password = db.Column(db.String(80), nullable=False)
     
+
+class Alert(db.Model):
+    __tablename__ = 'alerts'
+
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    asset = db.Column(db.String(10), nullable=False)
+    target_price = db.Column(db.Float, nullable=False)
+    is_open = db.Column(db.Boolean, default=True)
+
+    def __init__(self, user_id, asset, target_price, is_open=True):
+        self.user_id = user_id
+        self.asset = asset
+        self.target_price = target_price
+        self.is_open = is_open
+
+
+
 login_manager = LoginManager(app)
 login_manager.login_view = "login"
     
@@ -95,8 +124,6 @@ def dashboard():
     return render_template('dashboard.html')
 
 
-
-
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     form = RegisterForm()
@@ -117,6 +144,42 @@ def register():
 def logout():
     logout_user()
     return redirect(url_for('login'))
+
+
+
+@app.route('/set_alert_page')
+@login_required
+def set_alert_page():
+    # Afficher la page "set_alert.html"
+    return render_template('set_alert.html')
+
+
+
+@app.route('/set_alert', methods=['POST'])
+@login_required
+def set_alert():
+    asset = request.form.get('asset')
+    target_price = float(request.form.get('target_price'))
+    is_open = True
+
+    # Créez une nouvelle instance d'alerte
+    new_alert = Alert(user_id=current_user.id, asset=asset, target_price=target_price, is_open=is_open)
+
+
+    # Ajoutez l'alerte à la base de données
+    db.session.add(new_alert)
+    db.session.commit()
+
+    return redirect(url_for('mes_alertes'))
+
+
+@app.route('/mes_alertes')
+@login_required
+def mes_alertes():
+    user = current_user
+    open_alerts = Alert.query.filter_by(user_id=user.id, is_open=True).all()
+    closed_alerts = Alert.query.filter_by(user_id=user.id, is_open=False).all()
+    return render_template('mes_alertes.html', open_alerts=open_alerts, closed_alerts=closed_alerts)
 
 
 api_key = "CA89529B-FA3C-44B1-B65D-3BED3D6AAE70"

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Mes Alertes</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='/css/styles.css') }}">
+</head>
+<body>
+    {% include "navbar.html" %}
+    <h1 class="mesalertes-title">Mes Alertes</h1>
+
+    <h2 class="mesalertes-section-title">Alertes Ouvertes</h2>
+    <ul class="mesalertes-list">
+        {% for alert in open_alerts %}
+            <li class="mesalertes-list-item mesalertes-open-alert">
+                {{ alert.asset }} - Prix cible : {{ alert.target_price }} (ouvert)
+            </li>
+        {% endfor %}
+    </ul>
+
+    <h2 class="mesalertes-section-title">Alertes Fermées</h2>
+    <ul class="mesalertes-list">
+        {% for alert in closed_alerts %}
+            <li class="mesalertes-list-item mesalertes-closed-alert">
+                {{ alert.asset }} - Prix cible : {{ alert.target_price }} (fermé)
+            </li>
+        {% endfor %}
+    </ul>
+    {% include "footer.html" %}
+</body>
+</html>
