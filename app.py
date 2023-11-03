@@ -160,6 +160,30 @@ def set_alert_page():
 
 
 
+api_key = "CA89529B-FA3C-44B1-B65D-3BED3D6AAE70"
+
+assets = ['BTC', 'ETH', 'XRP']
+
+@app.route('/erreur_assets.html')
+def erreur_assets():
+    return render_template('erreur_assets.html')
+
+def get_current_price(asset):
+    url = f"https://rest.coinapi.io/v1/exchangerate/{asset}/USD"
+    headers = {
+        "X-CoinAPI-Key": api_key
+    }
+
+    response = requests.get(url, headers=headers)
+    data = response.json()
+    print(data)
+
+    if 'rate' in data:
+        return data['rate']
+    else:
+        return None
+    
+
 @app.route('/set_alert', methods=['POST'])
 @login_required
 def set_alert():
@@ -167,15 +191,25 @@ def set_alert():
     target_price = float(request.form.get('target_price'))
     is_open = True
 
-    # Créez une nouvelle instance d'alerte
-    new_alert = Alert(user_id=current_user.id, asset=asset, target_price=target_price, is_open=is_open)
+    try:
+        current_price = get_current_price(asset)
+        if current_price is None:
+            return redirect(url_for('erreur_assets'))
 
+        new_alert = Alert(user_id=current_user.id, asset=asset, target_price=target_price, is_open=is_open)
 
-    # Ajoutez l'alerte à la base de données
-    db.session.add(new_alert)
-    db.session.commit()
+        if (target_price > current_price and is_open) or (target_price < current_price and not is_open):
+            # Si le prix cible est déjà atteint, passez l'alerte en "close"
+            new_alert.is_open = False
 
-    return redirect(url_for('mes_alertes'))
+        db.session.add(new_alert)
+        db.session.commit()
+
+        return redirect(url_for('mes_alertes'))
+    except Exception as e:
+        # Gérez l'exception liée à la limite de requêtes ici
+        return redirect(url_for('erreur_assets'))
+
 
 
 @app.route('/mes_alertes')
@@ -217,9 +251,7 @@ def delete_alert(alert_id):
 
 
 
-api_key = "CA89529B-FA3C-44B1-B65D-3BED3D6AAE70"
 
-assets = ['BTC', 'ETH', 'XRP']
 
 
 def crypto_portfolio():
