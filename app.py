@@ -10,6 +10,8 @@ from flask_bcrypt import Bcrypt
 import requests
 from flask import jsonify
 import redis
+import json
+import logging
 
 app = Flask(__name__)
 
@@ -25,7 +27,8 @@ app.config['SECRET_KEY'] = 'thisisasecretkey'
 # Créez une instance de connexion Redis
 redis_client = redis.StrictRedis(host='localhost', port=5000, db=0)
 
-
+log_filename = 'app_log.json'
+logging.basicConfig(filename=log_filename, level=logging.DEBUG, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 
 login_manager = LoginManager(app)
 bcrypt = Bcrypt(app)
@@ -198,9 +201,17 @@ def set_alert():
 
         new_alert = Alert(user_id=current_user.id, asset=asset, target_price=target_price, is_open=is_open)
 
-        if (target_price > current_price and is_open) or (target_price < current_price and not is_open):
-            # Si le prix cible est déjà atteint, passez l'alerte en "close"
-            new_alert.is_open = False
+        # Si le Prix cible est supérieur au current price
+        if target_price > current_price:
+            # Passez l'alerte en "close" si le current price est égal ou supérieur au Prix cible
+            if current_price >= target_price:
+                new_alert.is_open = False
+
+        # Si le Prix cible est inférieur au current price
+        if target_price < current_price:
+            # Passez l'alerte en "close" si le current price est inférieur ou égal au Prix cible
+            if current_price <= target_price:
+                new_alert.is_open = False
 
         db.session.add(new_alert)
         db.session.commit()
