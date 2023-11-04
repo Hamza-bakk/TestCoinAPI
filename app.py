@@ -1,4 +1,5 @@
-from flask import Flask, render_template, url_for, redirect, request
+from flask import Flask
+from flask import request, redirect, url_for, render_template
 from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
 from wtforms.validators import InputRequired, Length, Email, ValidationError
@@ -12,17 +13,17 @@ from flask import jsonify
 import redis
 import json
 import logging
+from datetime import datetime
+from sqlalchemy.orm import Session
+
 
 app = Flask(__name__)
-
-
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
 db = SQLAlchemy()
 db.init_app(app)
 
 app.config['SECRET_KEY'] = 'thisisasecretkey'
-
 
 # Créez une instance de connexion Redis
 redis_client = redis.StrictRedis(host='localhost', port=5000, db=0)
@@ -35,15 +36,17 @@ bcrypt = Bcrypt(app)
 migrate = Migrate(app, db)
 
 
+session = Session()
+
 login_manager.login_view = "login"
 
 
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(20), nullable=False, unique=True)
-    email = db.Column(db.String(120), nullable=False, unique=True) 
+    email = db.Column(db.String(120), nullable=False, unique=True)  # Champ email ajouté
     password = db.Column(db.String(80), nullable=False)
-    
+
 
 class Alert(db.Model):
     __tablename__ = 'alerts'
@@ -61,24 +64,21 @@ class Alert(db.Model):
         self.is_open = is_open
 
 
-
-login_manager = LoginManager(app)
 login_manager.login_view = "login"
-    
+
+
 @login_manager.user_loader
 def load_user(user_id):
-    return User.query.get(int(user_id))
+    user = User.query.get(int(user_id))  # Utilisez User.query au lieu de session.get
+    return user
 
 
 class RegisterForm(FlaskForm):
-    username = StringField(validators=[InputRequired(), Length(min=4, max=20)], 
-    render_kw={"placeholder": "Username"})
-    
-    email = StringField(validators=[InputRequired(), Email(), Length(max=120)], 
-    render_kw={"placeholder": "Email"})  # Champ email ajouté
+    username = StringField(validators=[InputRequired(), Length(min=4, max=20)], render_kw={"placeholder": "Username"})
 
-    password = PasswordField(validators=[InputRequired(), Length(min=8, max=20)], 
-    render_kw={"placeholder": "Password"})
+    email = StringField(validators=[InputRequired(), Email(), Length(max=120)], render_kw={"placeholder": "Email"})  # Champ email ajouté
+    
+    password = PasswordField(validators=[InputRequired(), Length(min=8, max=20)], render_kw={"placeholder": "Password"})
 
     submit = SubmitField('Register')
 
@@ -163,7 +163,8 @@ def set_alert_page():
 
 
 
-api_key = "CA89529B-FA3C-44B1-B65D-3BED3D6AAE70"
+# api_key = "AE1B809C-03C8-4342-B9D4-5378A137F868"
+api_key = "9BDAF92C-3C94-4F06-B943-13B5D44A7EF6" 
 
 assets = ['BTC', 'ETH', 'XRP']
 
@@ -212,23 +213,41 @@ def set_alert():
             # Passez l'alerte en "close" si le current price est inférieur ou égal au Prix cible
             if current_price <= target_price:
                 new_alert.is_open = False
-
+                
         db.session.add(new_alert)
         db.session.commit()
 
+        if not new_alert.is_open :
+            # L'alerte est fermée, affichez un message en Python
+            alert_message = f"Notification : Votre alerte {new_alert.id} a été exécutée )"
+            print(alert_message)
+            # Enregistrez le message dans un fichier journal si nécessaire
+            with open('alerts.json', 'a') as log_file:
+                log_file.write(alert_message + '\n')
         return redirect(url_for('mes_alertes'))
     except Exception as e:
         # Gérez l'exception liée à la limite de requêtes ici
         return redirect(url_for('erreur_assets'))
 
 
-
 @app.route('/mes_alertes')
 @login_required
 def mes_alertes():
     user = current_user
-    open_alerts = Alert.query.filter_by(user_id=user.id, is_open=True).all()
-    closed_alerts = Alert.query.filter_by(user_id=user.id, is_open=False).all()
+    # Mettez à jour l'état de toutes les alertes en fonction du prix actuel
+    alerts = Alert.query.filter_by(user_id=user.id).all()
+    
+    for alert in alerts:
+        current_price = get_current_price(alert.asset)
+        if current_price is not None:
+            if alert.target_price >= current_price:
+                alert.is_open = False
+            else:
+                alert.is_open = True
+
+    db.session.commit()  # Mettez à jour la base de données
+    open_alerts = [alert for alert in alerts if alert.is_open]
+    closed_alerts = [alert for alert in alerts if not alert.is_open]
     return render_template('mes_alertes.html', open_alerts=open_alerts, closed_alerts=closed_alerts)
 
 
@@ -236,6 +255,7 @@ def mes_alertes():
 @login_required
 def edit_alert(alert_id):
     alert = Alert.query.get(alert_id)
+
     if not alert:
         return redirect(url_for('mes_alertes'))
 
@@ -255,14 +275,11 @@ def edit_alert(alert_id):
 @login_required
 def delete_alert(alert_id):
     alert = Alert.query.get(alert_id)
+
     if alert:
         db.session.delete(alert)
         db.session.commit()
     return redirect(url_for('mes_alertes'))
-
-
-
-
 
 
 def crypto_portfolio():

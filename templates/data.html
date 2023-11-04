@@ -4,19 +4,21 @@
     <title>Informations Crypto-monnaies</title>
 </head>
 <body>
-    <div class="table-container">
-        <table>
-            <tr>
-                <th>Crypto-monnaie</th>
-                <th>Cours Crypto-monnaie(USD)</th>
-            </tr>
-            {% for asset, rate in exchange_rates.items() %}
+    <main>
+        <div class="table-container">
+            <table>
+                <tr>
+                    <th>Crypto-monnaie</th>
+                    <th>Cours Crypto-monnaie(USD)</th>
+                </tr>
+                {% for asset, rate in exchange_rates.items() %}
                 <tr>
                     <td>{{ asset }}</td>
                     <td>{{ "{:,.2f}".format(rate) }}</td>
                 </tr>
-            {% endfor %}
-        </table>
-    </div>
+                {% endfor %}
+            </table>
+        </div>
+    </main>
 </body>
 </html>
