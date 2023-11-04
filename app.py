@@ -91,12 +91,14 @@ class RegisterForm(FlaskForm):
 
     def validate_username(self, username):
         existing_user_username = User.query.filter_by(username=username.data).first()
+        print(existing_user_username)
         if existing_user_username:
             raise ValidationError(
                 'That username already exists. Please choose a different one.')
     
     def validate_email(self, email):
         existing_user_email = User.query.filter_by(email=email.data).first()
+        print(existing_user_email)
         if existing_user_email:
             raise ValidationError('That email address is already registered. Please choose a different one.')
 
@@ -174,9 +176,9 @@ def set_alert_page():
 
 
 
-# api_key = "AE1B809C-03C8-4342-B9D4-5378A137F868"
+api_key = "AE1B809C-03C8-4342-B9D4-5378A137F868"
 # api_key = "9BDAF92C-3C94-4F06-B943-13B5D44A7EF6" 
-api_key = "9BDAF92C-3C94-4F06-B943-13B5D44A7EF6" 
+# api_key = "9F628E50-7639-4519-85EE-964B0191BBF6" 
 
 assets = ['BTC', 'ETH', 'XRP']
 
@@ -205,6 +207,8 @@ def get_current_price(asset):
 def set_alert():
     asset = request.form.get('asset')
     target_price = float(request.form.get('target_price'))
+    open_date = db.Column(db.DateTime, default=datetime.utcnow)
+    close_date = db.Column(db.DateTime, nullable=True)
     is_open = True
 
     try:
@@ -212,7 +216,7 @@ def set_alert():
         if current_price is None:
             return redirect(url_for('erreur_assets'))
 
-        new_alert = Alert(user_id=current_user.id, asset=asset, target_price=target_price, is_open=is_open)
+        new_alert = Alert(user_id=current_user.id, asset=asset, open_date=open_date, close_date=close_date, target_price=target_price, is_open=is_open)
 
         # Si le Prix cible est supérieur au current price
         if target_price > current_price:
@@ -230,15 +234,12 @@ def set_alert():
         db.session.commit()
 
         if not new_alert.is_open :
-            # L'alerte est fermée, affichez un message en Python
-            alert_message = f"Notification : Votre alerte {new_alert.id} a été exécutée )"
+            alert_message = f"Notification : Votre alerte {new_alert.id} a été exécutée le {close_date} qui a été ouverte le {open_date})"
             print(alert_message)
-            # Enregistrez le message dans un fichier journal si nécessaire
             with open('alerts.json', 'a') as log_file:
                 log_file.write(alert_message + '\n')
         return redirect(url_for('mes_alertes'))
     except Exception as e:
-        # Gérez l'exception liée à la limite de requêtes ici
         return redirect(url_for('erreur_assets'))
 
 
