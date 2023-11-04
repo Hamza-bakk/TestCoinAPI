@@ -153,6 +153,10 @@ def logout():
     logout_user()
     return redirect(url_for('login'))
 
+@app.route('/about')
+@login_required
+def about():
+    return render_template('about.html')
 
 
 @app.route('/set_alert_page')
