@@ -5,39 +5,21 @@
 <head>
     <title>Erreur - Limite de Requêtes Dépassée</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='/css/styles.css') }}">
-    <style>
-        .error-message {
-            text-align: center;
-            margin-top: 100px;
-            font-size: 24px;
-        }
-        .button-container {
-            text-align: center;
-            margin-top: 20px;
-        }
-        .btn-redirect {
-            background-color: #007BFF;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            text-decoration: none;
-        }
-        .btn-redirect:hover {
-            background-color: #0056b3;
-        }
-    </style>
+    
 </head>
 <body>
-    <div class="error-message">
-        <p>Le nombre maximal de requêtes avec cette API a été dépassé.</p>
-        <p>Veuillez réessayer dans 24 heures.</p>
-    </div>
-    <div class="button-container">
-        <a class="btn-redirect" href="{{ url_for('accueil') }}">Retour à la page d'accueil</a>
-    </div>
+    <main>
+        <div class="error-message">
+            <p>Le nombre maximal de requêtes avec cette API a été dépassé.</p>
+            <p>Veuillez réessayer plutard.</p>
+        </div>
+        <div class="button-container">
+            <a class="btn-redirect" href="{{ url_for('accueil') }}">Retour à la page d'accueil</a>
+        </div>
+    </main>
+    
+    
+    {% include "footer.html" %}
+    
 </body>
 </html>
-
-{% include "footer.html" %}

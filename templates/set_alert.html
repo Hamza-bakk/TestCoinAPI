@@ -5,22 +5,23 @@
 </head>
 <body>
     {% include "navbar.html" %}
-
-    <h1>Définir une Alerte</h1>
-    <form method="POST" action="/set_alert">
-        <label for="asset">Crypto-actif :</label>
-        <select name="asset" id="asset">
-            <option value="BTC">Bitcoin (BTC)</option>
-            <option value="ETH">Ethereum (ETH)</option>
-            <option value="XRP">Ripple (XRP)</option>
-            <!-- Ajoutez d'autres options pour les crypto-actifs que vous prenez en charge -->
-        </select>
-        <br>
-        <label for="target_price">Prix cible :</label>
-        <input type="number" name="target_price" id="target_price" step="0.01">
-        <br>
-        <input type="submit" value="Définir l'alerte">
-    </form>
+    <main> 
+        <h1>Définir une Alerte</h1>
+        <form method="POST" action="/set_alert">
+            <label for="asset">Crypto-actif :</label>
+            <select name="asset" id="asset">
+                <option value="BTC">Bitcoin (BTC)</option>
+                <option value="ETH">Ethereum (ETH)</option>
+                <option value="XRP">Ripple (XRP)</option>
+                <!-- Ajoutez d'autres options pour les crypto-actifs que vous prenez en charge -->
+            </select>
+            <br>
+            <label for="target_price">Prix cible :</label>
+            <input type="number" name="target_price" id="target_price" step="0.01">
+            <br>
+            <input type="submit" value="Définir l'alerte">
+        </form>
+    </main>
     {% include "footer.html" %}
 </body>
 </html>

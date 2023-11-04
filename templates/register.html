@@ -10,9 +10,9 @@
 
 <body>
     {% include "navbar.html" %}
-
+    <main>
     <h1>Register Page</h1>
-
+    
     <form method="POST" action="">
         {{ form.hidden_tag() }}
         {{ form.username }}
@@ -20,10 +20,10 @@
         {{ form.password }}
         {{ form.submit }}
     </form>
-
+    
     <a href="{{ url_for('login') }}">Already have an account? Log In</a>
-
-    {% include "footer.html" %}
+</main>
+{% include "footer.html" %}
 </body>
 
 </html>

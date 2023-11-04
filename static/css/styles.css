@@ -4,8 +4,22 @@ body {
     font-family: Arial, sans-serif;
     background-color: rgb(255, 255, 255);
     color: rgb(0, 0, 0);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Pour que le contenu s'étende sur toute la hauteur de la fenêtre */
+    margin: 0; /* Pour supprimer les marges par défaut du corps */
+    padding: 0; /* Pour supprimer le rembourrage par défaut du corps */
     
 }
+
+main {
+    
+    flex: 1; /* Pour que le contenu principal s'étende pour remplir l'espace restant */
+    overflow-y: auto; /* Ajoute une barre de défilement verticale si le contenu dépasse */
+    padding: 20px; /* Pour l'espace entre le contenu et les bords de main */
+}
+
+
 
 .background-img {
     width: 100%;
@@ -68,11 +82,7 @@ body {
     color: white;
     text-align: center;
     padding: 20px;
-    position: absolute;
-    bottom: 0;
     width: 100%;
-    transform: translateY(100%);
-    transition: transform 0.3s ease; /* Animation pour une transition douce */
 }
 
 
@@ -242,40 +252,119 @@ input[type="submit"]:hover {
     background-color: #0056b3;
 }
 
-/* style.css */
-
+/* Style pour le titre "Mes Alertes" */
 .mesalertes-title {
-    text-align: center;
     font-size: 24px;
+    font-weight: bold;
     margin-top: 20px;
-    color: #333;
 }
 
+/* Style pour les sections "Alertes Ouvertes" et "Alertes Fermées" */
 .mesalertes-section-title {
     font-size: 20px;
-    margin-top: 20px;
-    color: #007BFF;
+    font-weight: bold;
+    margin-top: 15px;
+    margin-bottom: 10px;
 }
 
+/* Style pour la liste d'alertes ouvertes et fermées */
 .mesalertes-list {
-    list-style-type: none;
+    list-style: none;
     padding: 0;
-    margin-top: 10px;
 }
 
-.mesalertes-list-item {
-    background-color: #fff;
-    border: 1px solid #ccc;
+/* Style pour chaque élément de la liste d'alertes ouvertes */
+.mesalertes-open-alert {
+    background-color: #dff0d8;
+    border: 1px solid #3c763d;
+    text-align: center;
     border-radius: 5px;
     padding: 10px;
-    margin-top: 5px;
+    margin: 6px 0;
+}
+
+/* Style pour chaque élément de la liste d'alertes fermées */
+.mesalertes-closed-alert {
+    background-color: #f2dede;
+    border: 1px solid #a94442;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 5px 0;
+}
+
+/* Style pour les boutons "Éditer" et "Supprimer" */
+.btn {
+    display: inline-block;
+    padding: 5px 10px;
+    background-color: #337ab7;
+    color: #fff;
+    text-decoration: none;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.btn-primary {
+    background-color: #337ab7;
+}
+
+.btn-danger {
+    background-color: #d9534f;
+}
+
+/* Style pour le texte "ouvert" à côté des alertes ouvertes */
+.alert-status {
+    font-weight: bold;
+    color: #3c763d;
+    margin-left: 10px;
+}
+
+.NotificationCSS {
+    background-color: #f4f4f4;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    margin: 20px auto;
+    max-width: 400px;
+    text-align: center;
+}
+
+.NotificationCSS h1 {
+    font-size: 24px;
     color: #333;
 }
 
-.mesalertes-open-alert {
-    background-color: #e0ffe0; /* Couleur de fond pour les alertes ouvertes */
+.NotificationCSS p {
+    font-size: 16px;
+    color: #666;
 }
 
-.mesalertes-closed-alert {
-    background-color: #ffe0e0; /* Couleur de fond pour les alertes fermées */
+
+.error-message {
+    color: #d9534f; /* Rouge pour l'erreur */
+    font-size: 20px;
+    text-align: center;
+    padding: 20px; 
+}
+
+.button-container {
+    margin-top: 20px;
+    text-align: center;
+    padding: 20px; 
+}
+
+.btn-redirect {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #d9534f; /* Rouge pour le bouton */
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+    padding: 20px; 
+}
+
+.btn-redirect:hover {
+    background-color: #a94442; /* Rouge plus foncé au survol */
 }
