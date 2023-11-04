@@ -6,14 +6,14 @@
 </head>
 <body>
     {% include "navbar.html" %}
-    <main> 
+    <main>
         <h1 class="mesalertes-title">Mes Alertes</h1>
         
         <h2 class="mesalertes-section-title">Alertes Ouvertes</h2>
         <ul class="mesalertes-list">
             {% for alert in open_alerts %}
             <li class="mesalertes-list-item mesalertes-open-alert">
-                {{ alert.asset }} - Prix cible : {{ alert.target_price }} (ouvert) - ID de l'alerte : {{ alert.id }}
+                {{ alert.asset }} - Prix cible : {{ alert.target_price }} (ouvert) - ID de l'alerte : {{ alert.id }} - Date d'ouverture : {{ alert.open_date.strftime('%Y-%m-%d %H:%M:%S') }}
                 <form method="POST" action="{{ url_for('edit_alert', alert_id=alert.id) }}">
                     <button type="submit" class="btn btn-primary">Éditer</button>
                 </form>
@@ -25,17 +25,16 @@
             {% endfor %}
         </ul>
         
-        
-        
         <h2 class="mesalertes-section-title">Alertes Fermées</h2>
         <ul class="mesalertes-list">
             {% for alert in closed_alerts %}
             <li class="mesalertes-list-item mesalertes-closed-alert">
                 {{ alert.asset }} - Prix cible : {{ alert.target_price }} (fermé) - ID de l'alerte : {{ alert.id }}
+                - Date : {% if alert.closed_date %}{{ alert.closed_date.strftime('%Y-%m-%d %H:%M:%S') }}{% else %}{{ alert.open_date.strftime('%Y-%m-%d %H:%M:%S') }}{% endif %}
             </li>
             {% endfor %}
         </ul>
-        </main>
+    </main>
     {% include "footer.html" %}
 </body>
 </html>

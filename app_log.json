@@ -193,3 +193,153 @@
 2023-11-04 16:54:01,407 - urllib3.connectionpool - DEBUG - https://rest.coinapi.io:443 "GET /v1/exchangerate/BTC/USD HTTP/1.1" 429 None
 2023-11-04 16:54:01,426 - werkzeug - INFO - 127.0.0.1 - - [04/Nov/2023 16:54:01] "GET /mes_alertes HTTP/1.1" 200 -
 2023-11-04 16:54:01,629 - werkzeug - INFO - 127.0.0.1 - - [04/Nov/2023 16:54:01] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2023-11-04 16:59:15,612 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2023-11-04 16:59:15,612 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2023-11-04 16:59:15,613 - werkzeug - INFO -  * Restarting with stat
+2023-11-04 16:59:16,447 - werkzeug - WARNING -  * Debugger is active!
+2023-11-04 16:59:16,448 - werkzeug - INFO -  * Debugger PIN: 135-885-010
+2023-11-04 16:59:38,994 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): rest.coinapi.io:443
+2023-11-04 16:59:39,487 - urllib3.connectionpool - DEBUG - https://rest.coinapi.io:443 "GET /v1/exchangerate/BTC/USD HTTP/1.1" 200 None
+2023-11-04 16:59:39,490 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): rest.coinapi.io:443
+2023-11-04 16:59:39,836 - urllib3.connectionpool - DEBUG - https://rest.coinapi.io:443 "GET /v1/exchangerate/BTC/USD HTTP/1.1" 429 None
+2023-11-04 16:59:39,840 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): rest.coinapi.io:443
+2023-11-04 16:59:40,191 - urllib3.connectionpool - DEBUG - https://rest.coinapi.io:443 "GET /v1/exchangerate/BTC/USD HTTP/1.1" 429 None
+2023-11-04 16:59:40,194 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): rest.coinapi.io:443
+2023-11-04 16:59:40,527 - urllib3.connectionpool - DEBUG - https://rest.coinapi.io:443 "GET /v1/exchangerate/BTC/USD HTTP/1.1" 429 None
+2023-11-04 16:59:40,534 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): rest.coinapi.io:443
+2023-11-04 16:59:40,906 - urllib3.connectionpool - DEBUG - https://rest.coinapi.io:443 "GET /v1/exchangerate/BTC/USD HTTP/1.1" 429 None
+2023-11-04 16:59:40,912 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): rest.coinapi.io:443
+2023-11-04 16:59:41,265 - urllib3.connectionpool - DEBUG - https://rest.coinapi.io:443 "GET /v1/exchangerate/BTC/USD HTTP/1.1" 429 None
+2023-11-04 16:59:41,272 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): rest.coinapi.io:443
+2023-11-04 16:59:41,607 - urllib3.connectionpool - DEBUG - https://rest.coinapi.io:443 "GET /v1/exchangerate/XRP/USD HTTP/1.1" 429 None
+2023-11-04 16:59:41,611 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): rest.coinapi.io:443
+2023-11-04 16:59:42,046 - urllib3.connectionpool - DEBUG - https://rest.coinapi.io:443 "GET /v1/exchangerate/BTC/USD HTTP/1.1" 429 None
+2023-11-04 16:59:42,053 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): rest.coinapi.io:443
+2023-11-04 16:59:42,399 - urllib3.connectionpool - DEBUG - https://rest.coinapi.io:443 "GET /v1/exchangerate/BTC/USD HTTP/1.1" 429 None
+2023-11-04 16:59:42,404 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): rest.coinapi.io:443
+2023-11-04 16:59:42,722 - urllib3.connectionpool - DEBUG - https://rest.coinapi.io:443 "GET /v1/exchangerate/BTC/USD HTTP/1.1" 429 None
+2023-11-04 16:59:42,789 - werkzeug - INFO - 127.0.0.1 - - [04/Nov/2023 16:59:42] "[35m[1mGET /mes_alertes HTTP/1.1[0m" 500 -
+2023-11-04 16:59:42,879 - werkzeug - INFO - 127.0.0.1 - - [04/Nov/2023 16:59:42] "[36mGET /mes_alertes?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+2023-11-04 16:59:42,884 - werkzeug - INFO - 127.0.0.1 - - [04/Nov/2023 16:59:42] "[36mGET /mes_alertes?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+2023-11-04 16:59:43,301 - werkzeug - INFO - 127.0.0.1 - - [04/Nov/2023 16:59:43] "[36mGET /mes_alertes?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2023-11-04 16:59:43,454 - werkzeug - INFO - 127.0.0.1 - - [04/Nov/2023 16:59:43] "[36mGET /mes_alertes?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2023-11-04 17:01:34,438 - flask_migrate - ERROR - Error: Directory migrations already exists and is not empty
+2023-11-04 17:05:57,145 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2023-11-04 17:05:57,145 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2023-11-04 17:05:57,147 - werkzeug - INFO -  * Restarting with stat
+2023-11-04 17:05:58,070 - werkzeug - WARNING -  * Debugger is active!
+2023-11-04 17:05:58,070 - werkzeug - INFO -  * Debugger PIN: 135-885-010
+2023-11-04 17:05:59,176 - werkzeug - INFO - 127.0.0.1 - - [04/Nov/2023 17:05:59] "[32mGET /mes_alertes HTTP/1.1[0m" 302 -
+2023-11-04 17:05:59,220 - werkzeug - INFO - 127.0.0.1 - - [04/Nov/2023 17:05:59] "GET /login?next=/mes_alertes HTTP/1.1" 200 -
+2023-11-04 17:05:59,773 - werkzeug - INFO - 127.0.0.1 - - [04/Nov/2023 17:05:59] "GET /static/css/styles.css HTTP/1.1" 200 -
+2023-11-04 17:06:01,390 - werkzeug - INFO - 127.0.0.1 - - [04/Nov/2023 17:06:01] "POST /login?next=/mes_alertes HTTP/1.1" 200 -
+2023-11-04 17:06:01,660 - werkzeug - INFO - 127.0.0.1 - - [04/Nov/2023 17:06:01] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2023-11-04 17:06:08,815 - werkzeug - INFO - 127.0.0.1 - - [04/Nov/2023 17:06:08] "GET /register HTTP/1.1" 200 -
+2023-11-04 17:06:09,032 - werkzeug - INFO - 127.0.0.1 - - [04/Nov/2023 17:06:09] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2023-11-04 17:06:16,836 - werkzeug - INFO - 127.0.0.1 - - [04/Nov/2023 17:06:16] "[32mPOST /register HTTP/1.1[0m" 302 -
+2023-11-04 17:06:16,845 - werkzeug - INFO - 127.0.0.1 - - [04/Nov/2023 17:06:16] "GET /login HTTP/1.1" 200 -
+2023-11-04 17:06:17,079 - werkzeug - INFO - 127.0.0.1 - - [04/Nov/2023 17:06:17] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2023-11-04 17:06:18,866 - werkzeug - INFO - 127.0.0.1 - - [04/Nov/2023 17:06:18] "[32mPOST /login HTTP/1.1[0m" 302 -
+2023-11-04 17:06:18,878 - werkzeug - INFO - 127.0.0.1 - - [04/Nov/2023 17:06:18] "GET /dashboard HTTP/1.1" 200 -
+2023-11-04 17:06:19,111 - werkzeug - INFO - 127.0.0.1 - - [04/Nov/2023 17:06:19] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2023-11-04 17:06:20,107 - werkzeug - INFO - 127.0.0.1 - - [04/Nov/2023 17:06:20] "[35m[1mGET /mes_alertes HTTP/1.1[0m" 500 -
+2023-11-04 17:06:20,173 - werkzeug - INFO - 127.0.0.1 - - [04/Nov/2023 17:06:20] "[36mGET /mes_alertes?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+2023-11-04 17:06:20,177 - werkzeug - INFO - 127.0.0.1 - - [04/Nov/2023 17:06:20] "[36mGET /mes_alertes?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+2023-11-04 17:06:20,404 - werkzeug - INFO - 127.0.0.1 - - [04/Nov/2023 17:06:20] "[36mGET /mes_alertes?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2023-11-04 17:06:20,471 - werkzeug - INFO - 127.0.0.1 - - [04/Nov/2023 17:06:20] "[36mGET /mes_alertes?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2023-11-04 17:08:28,335 - werkzeug - INFO - 127.0.0.1 - - [04/Nov/2023 17:08:28] "GET /mes_alertes HTTP/1.1" 200 -
+2023-11-04 17:08:28,444 - werkzeug - INFO - 127.0.0.1 - - [04/Nov/2023 17:08:28] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2023-11-04 17:08:30,666 - werkzeug - INFO - 127.0.0.1 - - [04/Nov/2023 17:08:30] "GET /set_alert_page HTTP/1.1" 200 -
+2023-11-04 17:08:31,058 - werkzeug - INFO - 127.0.0.1 - - [04/Nov/2023 17:08:31] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2023-11-04 17:08:33,869 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): rest.coinapi.io:443
+2023-11-04 17:08:34,342 - urllib3.connectionpool - DEBUG - https://rest.coinapi.io:443 "GET /v1/exchangerate/BTC/USD HTTP/1.1" 200 None
+2023-11-04 17:08:34,365 - werkzeug - INFO - 127.0.0.1 - - [04/Nov/2023 17:08:34] "[32mPOST /set_alert HTTP/1.1[0m" 302 -
+2023-11-04 17:08:34,386 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): rest.coinapi.io:443
+2023-11-04 17:08:34,720 - urllib3.connectionpool - DEBUG - https://rest.coinapi.io:443 "GET /v1/exchangerate/BTC/USD HTTP/1.1" 200 None
+2023-11-04 17:08:34,748 - werkzeug - INFO - 127.0.0.1 - - [04/Nov/2023 17:08:34] "GET /mes_alertes HTTP/1.1" 200 -
+2023-11-04 17:08:34,947 - werkzeug - INFO - 127.0.0.1 - - [04/Nov/2023 17:08:34] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2023-11-04 17:08:49,145 - werkzeug - INFO - 127.0.0.1 - - [04/Nov/2023 17:08:49] "GET /set_alert_page HTTP/1.1" 200 -
+2023-11-04 17:08:49,335 - werkzeug - INFO - 127.0.0.1 - - [04/Nov/2023 17:08:49] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2023-11-04 17:08:53,107 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): rest.coinapi.io:443
+2023-11-04 17:08:54,207 - urllib3.connectionpool - DEBUG - https://rest.coinapi.io:443 "GET /v1/exchangerate/BTC/USD HTTP/1.1" 429 None
+2023-11-04 17:08:54,211 - werkzeug - INFO - 127.0.0.1 - - [04/Nov/2023 17:08:54] "[32mPOST /set_alert HTTP/1.1[0m" 302 -
+2023-11-04 17:08:54,225 - werkzeug - INFO - 127.0.0.1 - - [04/Nov/2023 17:08:54] "GET /erreur_assets.html HTTP/1.1" 200 -
+2023-11-04 17:08:54,433 - werkzeug - INFO - 127.0.0.1 - - [04/Nov/2023 17:08:54] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2023-11-04 17:08:56,275 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): rest.coinapi.io:443
+2023-11-04 17:08:56,769 - urllib3.connectionpool - DEBUG - https://rest.coinapi.io:443 "GET /v1/exchangerate/BTC/USD HTTP/1.1" 429 None
+2023-11-04 17:08:56,774 - werkzeug - INFO - 127.0.0.1 - - [04/Nov/2023 17:08:56] "GET /mes_alertes HTTP/1.1" 200 -
+2023-11-04 17:08:56,933 - werkzeug - INFO - 127.0.0.1 - - [04/Nov/2023 17:08:56] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2023-11-04 17:09:44,881 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): rest.coinapi.io:443
+2023-11-04 17:09:45,280 - urllib3.connectionpool - DEBUG - https://rest.coinapi.io:443 "GET /v1/exchangerate/BTC/USD HTTP/1.1" 200 None
+2023-11-04 17:09:45,320 - werkzeug - INFO - 127.0.0.1 - - [04/Nov/2023 17:09:45] "[35m[1mGET /mes_alertes HTTP/1.1[0m" 500 -
+2023-11-04 17:09:45,404 - werkzeug - INFO - 127.0.0.1 - - [04/Nov/2023 17:09:45] "[36mGET /mes_alertes?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+2023-11-04 17:09:45,405 - werkzeug - INFO - 127.0.0.1 - - [04/Nov/2023 17:09:45] "[36mGET /mes_alertes?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+2023-11-04 17:09:45,644 - werkzeug - INFO - 127.0.0.1 - - [04/Nov/2023 17:09:45] "[36mGET /mes_alertes?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2023-11-04 17:09:45,765 - werkzeug - INFO - 127.0.0.1 - - [04/Nov/2023 17:09:45] "[36mGET /mes_alertes?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2023-11-04 17:10:41,243 - werkzeug - INFO -  * Detected change in '/home/hamza/Bureau/Python/Scraping/app.py', reloading
+2023-11-04 17:10:41,529 - werkzeug - INFO -  * Restarting with stat
+2023-11-04 17:10:42,250 - werkzeug - WARNING -  * Debugger is active!
+2023-11-04 17:10:42,251 - werkzeug - INFO -  * Debugger PIN: 135-885-010
+2023-11-04 17:11:20,719 - werkzeug - INFO - 127.0.0.1 - - [04/Nov/2023 17:11:20] "GET /set_alert_page HTTP/1.1" 200 -
+2023-11-04 17:11:21,044 - werkzeug - INFO - 127.0.0.1 - - [04/Nov/2023 17:11:21] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2023-11-04 17:11:23,455 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): rest.coinapi.io:443
+2023-11-04 17:11:23,955 - urllib3.connectionpool - DEBUG - https://rest.coinapi.io:443 "GET /v1/exchangerate/BTC/USD HTTP/1.1" 200 None
+2023-11-04 17:11:23,985 - werkzeug - INFO - 127.0.0.1 - - [04/Nov/2023 17:11:23] "[32mPOST /set_alert HTTP/1.1[0m" 302 -
+2023-11-04 17:11:24,012 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): rest.coinapi.io:443
+2023-11-04 17:11:24,428 - urllib3.connectionpool - DEBUG - https://rest.coinapi.io:443 "GET /v1/exchangerate/BTC/USD HTTP/1.1" 200 None
+2023-11-04 17:11:24,435 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): rest.coinapi.io:443
+2023-11-04 17:11:24,843 - urllib3.connectionpool - DEBUG - https://rest.coinapi.io:443 "GET /v1/exchangerate/BTC/USD HTTP/1.1" 429 None
+2023-11-04 17:11:24,890 - werkzeug - INFO - 127.0.0.1 - - [04/Nov/2023 17:11:24] "[35m[1mGET /mes_alertes HTTP/1.1[0m" 500 -
+2023-11-04 17:11:24,964 - werkzeug - INFO - 127.0.0.1 - - [04/Nov/2023 17:11:24] "[36mGET /mes_alertes?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+2023-11-04 17:11:24,966 - werkzeug - INFO - 127.0.0.1 - - [04/Nov/2023 17:11:24] "[36mGET /mes_alertes?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+2023-11-04 17:11:25,141 - werkzeug - INFO - 127.0.0.1 - - [04/Nov/2023 17:11:25] "[36mGET /mes_alertes?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2023-11-04 17:11:47,008 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): rest.coinapi.io:443
+2023-11-04 17:11:48,272 - urllib3.connectionpool - DEBUG - https://rest.coinapi.io:443 "GET /v1/exchangerate/BTC/USD HTTP/1.1" 429 None
+2023-11-04 17:11:48,275 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): rest.coinapi.io:443
+2023-11-04 17:11:48,613 - urllib3.connectionpool - DEBUG - https://rest.coinapi.io:443 "GET /v1/exchangerate/BTC/USD HTTP/1.1" 429 None
+2023-11-04 17:11:48,621 - werkzeug - INFO - 127.0.0.1 - - [04/Nov/2023 17:11:48] "GET /mes_alertes HTTP/1.1" 200 -
+2023-11-04 17:11:48,802 - werkzeug - INFO - 127.0.0.1 - - [04/Nov/2023 17:11:48] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2023-11-04 17:12:26,378 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): rest.coinapi.io:443
+2023-11-04 17:12:26,794 - urllib3.connectionpool - DEBUG - https://rest.coinapi.io:443 "GET /v1/exchangerate/BTC/USD HTTP/1.1" 200 None
+2023-11-04 17:12:26,798 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): rest.coinapi.io:443
+2023-11-04 17:12:27,152 - urllib3.connectionpool - DEBUG - https://rest.coinapi.io:443 "GET /v1/exchangerate/BTC/USD HTTP/1.1" 429 None
+2023-11-04 17:12:27,214 - werkzeug - INFO - 127.0.0.1 - - [04/Nov/2023 17:12:27] "GET /mes_alertes HTTP/1.1" 200 -
+2023-11-04 17:12:27,460 - werkzeug - INFO - 127.0.0.1 - - [04/Nov/2023 17:12:27] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2023-11-04 17:12:34,103 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): rest.coinapi.io:443
+2023-11-04 17:12:35,073 - urllib3.connectionpool - DEBUG - https://rest.coinapi.io:443 "GET /v1/exchangerate/BTC/USD HTTP/1.1" 429 None
+2023-11-04 17:12:35,076 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): rest.coinapi.io:443
+2023-11-04 17:12:35,411 - urllib3.connectionpool - DEBUG - https://rest.coinapi.io:443 "GET /v1/exchangerate/BTC/USD HTTP/1.1" 429 None
+2023-11-04 17:12:35,430 - werkzeug - INFO - 127.0.0.1 - - [04/Nov/2023 17:12:35] "GET /mes_alertes HTTP/1.1" 200 -
+2023-11-04 17:12:35,645 - werkzeug - INFO - 127.0.0.1 - - [04/Nov/2023 17:12:35] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2023-11-04 17:14:38,701 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): rest.coinapi.io:443
+2023-11-04 17:14:39,160 - urllib3.connectionpool - DEBUG - https://rest.coinapi.io:443 "GET /v1/exchangerate/BTC/USD HTTP/1.1" 200 None
+2023-11-04 17:14:39,163 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): rest.coinapi.io:443
+2023-11-04 17:14:39,510 - urllib3.connectionpool - DEBUG - https://rest.coinapi.io:443 "GET /v1/exchangerate/BTC/USD HTTP/1.1" 429 None
+2023-11-04 17:14:39,540 - werkzeug - INFO - 127.0.0.1 - - [04/Nov/2023 17:14:39] "GET /mes_alertes HTTP/1.1" 200 -
+2023-11-04 17:14:39,774 - werkzeug - INFO - 127.0.0.1 - - [04/Nov/2023 17:14:39] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2023-11-04 17:15:05,081 - werkzeug - INFO - 127.0.0.1 - - [04/Nov/2023 17:15:05] "GET /set_alert_page HTTP/1.1" 200 -
+2023-11-04 17:15:05,324 - werkzeug - INFO - 127.0.0.1 - - [04/Nov/2023 17:15:05] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2023-11-04 17:15:08,622 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): rest.coinapi.io:443
+2023-11-04 17:15:09,065 - urllib3.connectionpool - DEBUG - https://rest.coinapi.io:443 "GET /v1/exchangerate/BTC/USD HTTP/1.1" 429 None
+2023-11-04 17:15:09,068 - werkzeug - INFO - 127.0.0.1 - - [04/Nov/2023 17:15:09] "[32mPOST /set_alert HTTP/1.1[0m" 302 -
+2023-11-04 17:15:09,087 - werkzeug - INFO - 127.0.0.1 - - [04/Nov/2023 17:15:09] "GET /erreur_assets.html HTTP/1.1" 200 -
+2023-11-04 17:15:09,300 - werkzeug - INFO - 127.0.0.1 - - [04/Nov/2023 17:15:09] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2023-11-04 17:15:10,542 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): rest.coinapi.io:443
+2023-11-04 17:15:11,069 - urllib3.connectionpool - DEBUG - https://rest.coinapi.io:443 "GET /v1/exchangerate/BTC/USD HTTP/1.1" 429 None
+2023-11-04 17:15:11,076 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): rest.coinapi.io:443
+2023-11-04 17:15:11,379 - urllib3.connectionpool - DEBUG - https://rest.coinapi.io:443 "GET /v1/exchangerate/ETH/USD HTTP/1.1" 429 None
+2023-11-04 17:15:11,382 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): rest.coinapi.io:443
+2023-11-04 17:15:11,727 - urllib3.connectionpool - DEBUG - https://rest.coinapi.io:443 "GET /v1/exchangerate/XRP/USD HTTP/1.1" 429 None
+2023-11-04 17:15:11,734 - werkzeug - INFO - 127.0.0.1 - - [04/Nov/2023 17:15:11] "GET / HTTP/1.1" 200 -
+2023-11-04 17:15:11,954 - werkzeug - INFO - 127.0.0.1 - - [04/Nov/2023 17:15:11] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2023-11-04 17:15:11,970 - werkzeug - INFO - 127.0.0.1 - - [04/Nov/2023 17:15:11] "[36mGET /static/images/btc.png HTTP/1.1[0m" 304 -
+2023-11-04 17:15:56,687 - werkzeug - INFO -  * Detected change in '/home/hamza/Bureau/Python/Scraping/app.py', reloading
+2023-11-04 17:15:56,973 - werkzeug - INFO -  * Restarting with stat
+2023-11-04 17:15:57,736 - werkzeug - WARNING -  * Debugger is active!
+2023-11-04 17:15:57,737 - werkzeug - INFO -  * Debugger PIN: 135-885-010
+2023-11-04 17:16:03,280 - werkzeug - INFO -  * Detected change in '/home/hamza/Bureau/Python/Scraping/app.py', reloading
+2023-11-04 17:16:03,438 - werkzeug - INFO -  * Restarting with stat
+2023-11-04 17:16:04,056 - werkzeug - WARNING -  * Debugger is active!
+2023-11-04 17:16:04,058 - werkzeug - INFO -  * Debugger PIN: 135-885-010

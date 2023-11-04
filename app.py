@@ -9,7 +9,6 @@ from wtforms import StringField, PasswordField, SubmitField, FloatField
 from wtforms.validators import InputRequired, Length, ValidationError
 from flask_bcrypt import Bcrypt
 import requests
-from flask import jsonify
 import redis
 import json
 import logging
@@ -56,12 +55,20 @@ class Alert(db.Model):
     asset = db.Column(db.String(10), nullable=False)
     target_price = db.Column(db.Float, nullable=False)
     is_open = db.Column(db.Boolean, default=True)
+    open_date = db.Column(db.DateTime, default=datetime.utcnow)  # Date d'ouverture
+    close_date = db.Column(db.DateTime, nullable=True)  # Date de fermeture (initialisée à None)
 
     def __init__(self, user_id, asset, target_price, is_open=True):
         self.user_id = user_id
         self.asset = asset
         self.target_price = target_price
         self.is_open = is_open
+        self.open_date = datetime.utcnow() if is_open else None
+        
+
+    def close_alert(self):
+        self.is_open = False
+        self.close_date = datetime.utcnow()
 
 
 login_manager.login_view = "login"
@@ -168,6 +175,7 @@ def set_alert_page():
 
 
 # api_key = "AE1B809C-03C8-4342-B9D4-5378A137F868"
+# api_key = "9BDAF92C-3C94-4F06-B943-13B5D44A7EF6" 
 api_key = "9BDAF92C-3C94-4F06-B943-13B5D44A7EF6" 
 
 assets = ['BTC', 'ETH', 'XRP']
