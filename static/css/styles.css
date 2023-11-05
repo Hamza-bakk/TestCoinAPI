@@ -35,14 +35,23 @@ main {
 
 .text-overlay {
     position: absolute;
-    top: 50%; /* Positionner le texte au milieu de l'image en hauteur */
-    left: 50%; /* Positionner le texte au milieu de l'image en largeur */
-    transform: translate(-50%, -50%); /* Centrer le texte parfaitement */
-    color: white;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: rgb(0, 0, 0); /* Couleur du texte en gris */
     font-size: 24px;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Ajouter une ombre au texte */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
     z-index: 1;
+    text-align: center;
+    width: 100%; /* Largeur augmentée à 90% */
+    max-width: 900px; /* Largeur maximale augmentée à 600px */
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 40px; /* Bordure arrondie élargie */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    line-height: 2.8;
 }
+
 
 .navbar {
     display: flex;

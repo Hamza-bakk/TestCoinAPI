@@ -170,14 +170,13 @@ def about():
 @app.route('/set_alert_page')
 @login_required
 def set_alert_page():
-    # Afficher la page "set_alert.html"
     return render_template('set_alert.html')
 
 
 
-api_key = "AE1B809C-03C8-4342-B9D4-5378A137F868"
+# api_key = "AE1B809C-03C8-4342-B9D4-5378A137F868"
 # api_key = "9BDAF92C-3C94-4F06-B943-13B5D44A7EF6" 
-# api_key = "9F628E50-7639-4519-85EE-964B0191BBF6" 
+api_key = "9F628E50-7639-4519-85EE-964B0191BBF6" 
 
 assets = ['BTC', 'ETH', 'XRP']
 
@@ -201,12 +200,41 @@ def get_current_price(asset):
         return None
     
 
+@app.route('/mes_alertes')
+@login_required
+def mes_alertes():
+    user = current_user
+    # Mettez à jour l'état de toutes les alertes en fonction du prix actuel
+    alerts = Alert.query.filter_by(user_id=user.id).all()
+
+    for alert in alerts:
+        current_price = get_current_price(alert.asset)
+        if current_price is not None:
+            if alert.target_price >= current_price:
+                alert.is_open = False
+            else:
+                alert.is_open = True
+
+    db.session.commit()  # Mettez à jour la base de données
+    open_alerts = [alert for alert in alerts if alert.is_open]
+    closed_alerts = [alert for alert in alerts if not alert.is_open]
+
+    for alert in closed_alerts:
+        # L'alerte est fermée, affichez un message en Python
+        alert_message = f"Notification : Votre alerte {alert.id} a été exécutée"
+        print(alert_message)
+        # Enregistrez le message dans un fichier journal si nécessaire
+        with open('alerts_close.json', 'a') as log_file:
+            log_file.write(alert_message + '\n')
+
+    return render_template('mes_alertes.html', open_alerts=open_alerts, closed_alerts=closed_alerts)
+
+
 @app.route('/set_alert', methods=['POST'])
 @login_required
 def set_alert():
     asset = request.form.get('asset')
     target_price = float(request.form.get('target_price'))
-
     is_open = True
 
     try:
@@ -221,21 +249,20 @@ def set_alert():
             # Passez l'alerte en "close" si le current price est égal ou supérieur au Prix cible
             if current_price >= target_price:
                 new_alert.is_open = False
-                new_alert.close_alert()
 
         # Si le Prix cible est inférieur au current price
         if target_price < current_price:
             # Passez l'alerte en "close" si le current price est inférieur ou égal au Prix cible
             if current_price <= target_price:
                 new_alert.is_open = False
-
+                
         db.session.add(new_alert)
         db.session.commit()
 
         alert_message = f"Notification : Votre alerte {new_alert.id} a été {'créée' if is_open else 'exécutée'}"
         print(alert_message)
 
-        with open('alerts_all.json', 'a') as log_file:
+        with open('alerts_open.json', 'a') as log_file:
             log_file.write(alert_message + '\n')
 
         
@@ -243,29 +270,8 @@ def set_alert():
         return redirect(url_for('mes_alertes'))
     except Exception as e:
         return redirect(url_for('erreur_assets'))
-
-
-
-@app.route('/mes_alertes')
-@login_required
-def mes_alertes():
-    user = current_user
-    # Mettez à jour l'état de toutes les alertes en fonction du prix actuel
-    alerts = Alert.query.filter_by(user_id=user.id).all()
     
-    for alert in alerts:
-        current_price = get_current_price(alert.asset)
-        if current_price is not None:
-            if alert.target_price >= current_price:
-                alert.is_open = False
-            else:
-                alert.is_open = True
-
-    db.session.commit()  # Mettez à jour la base de données
-    open_alerts = [alert for alert in alerts if alert.is_open]
-    closed_alerts = [alert for alert in alerts if not alert.is_open]
-    return render_template('mes_alertes.html', open_alerts=open_alerts, closed_alerts=closed_alerts)
-
+    
 
 @app.route('/edit_alert/<int:alert_id>', methods=['GET', 'POST'])
 @login_required
