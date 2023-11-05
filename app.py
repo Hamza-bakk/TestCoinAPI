@@ -194,9 +194,9 @@ def set_alert_page():
 
 
 
-# api_key = "AE1B809C-03C8-4342-B9D4-5378A137F868"
+api_key = "AE1B809C-03C8-4342-B9D4-5378A137F868"
 # api_key = "9BDAF92C-3C94-4F06-B943-13B5D44A7EF6" 
-api_key = "9F628E50-7639-4519-85EE-964B0191BBF6" 
+# api_key = "9F628E50-7639-4519-85EE-964B0191BBF6" 
 
 assets = ['BTC', 'ETH', 'XRP']
 
@@ -231,19 +231,18 @@ def mes_alertes():
         current_price = get_current_price(alert.asset)
         if current_price is not None:
             if alert.is_open:
-                if alert.target_price >= current_price:
-                    alert.is_open = False
+                if alert.target_price > current_price:
+                    # Passez l'alerte en "close" si le current price est égal ou supérieur au Prix cible
+                    if current_price >= alert.target_price:
+                        alert.is_open = False
                 elif alert.target_price < current_price:
-                    alert.is_open = True
+                    # Passez l'alerte en "close" si le current price est inférieur ou égal au Prix cible
+                    if current_price <= alert.target_price:
+                        alert.is_open = False
 
     db.session.commit()  # Mettez à jour la base de données
     open_alerts = [alert for alert in alerts if alert.is_open]
     closed_alerts = [alert for alert in alerts if not alert.is_open]
-
-    if not os.path.exists('alerts_close.json'):
-        # Si le fichier n'existe pas, créez-le
-        with open('alerts_close.json', 'w'):
-            pass
 
     with open('alerts_close.json', 'r') as log_file:
         existing_alerts = log_file.read()
