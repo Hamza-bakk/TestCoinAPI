@@ -14,6 +14,7 @@ import json
 import logging
 from datetime import datetime
 from sqlalchemy.orm import Session
+import os
 
 
 app = Flask(__name__)
@@ -175,8 +176,8 @@ def set_alert_page():
 
 
 # api_key = "AE1B809C-03C8-4342-B9D4-5378A137F868"
-# api_key = "9BDAF92C-3C94-4F06-B943-13B5D44A7EF6" 
-api_key = "9F628E50-7639-4519-85EE-964B0191BBF6" 
+api_key = "9BDAF92C-3C94-4F06-B943-13B5D44A7EF6" 
+# api_key = "9F628E50-7639-4519-85EE-964B0191BBF6" 
 
 assets = ['BTC', 'ETH', 'XRP']
 
@@ -219,13 +220,22 @@ def mes_alertes():
     open_alerts = [alert for alert in alerts if alert.is_open]
     closed_alerts = [alert for alert in alerts if not alert.is_open]
 
+    if not os.path.exists('alerts_close.json'):
+        # Si le fichier n'existe pas, créez-le
+        with open('alerts_close.json', 'w'):
+            pass
+
+    with open('alerts_close.json', 'r') as log_file:
+        existing_alerts = log_file.read()
+
     for alert in closed_alerts:
-        # L'alerte est fermée, affichez un message en Python
+        # Vérifiez si l'alerte a déjà été enregistrée dans le fichier
         alert_message = f"Notification : Votre alerte {alert.id} a été exécutée"
-        print(alert_message)
-        # Enregistrez le message dans un fichier journal si nécessaire
-        with open('alerts_close.json', 'a') as log_file:
-            log_file.write(alert_message + '\n')
+        if alert_message not in existing_alerts:
+            print(alert_message)
+            # Enregistrez le message dans le fichier journal
+            with open('alerts_close.json', 'a') as log_file:
+                log_file.write(alert_message + '\n')
 
     return render_template('mes_alertes.html', open_alerts=open_alerts, closed_alerts=closed_alerts)
 
