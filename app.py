@@ -211,10 +211,9 @@ def mes_alertes():
     for alert in alerts:
         current_price = get_current_price(alert.asset)
         if current_price is not None:
-            if alert.target_price >= current_price:
-                alert.is_open = False
-            else:
-                alert.is_open = True
+            if alert.is_open:  # Vérifiez que l'alerte est ouverte avant de la mettre à jour
+                if alert.target_price >= current_price:
+                    alert.is_open = False
 
     db.session.commit()  # Mettez à jour la base de données
     open_alerts = [alert for alert in alerts if alert.is_open]
