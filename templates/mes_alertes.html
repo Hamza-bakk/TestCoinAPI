@@ -30,7 +30,6 @@
             {% for alert in closed_alerts %}
             <li class="mesalertes-list-item mesalertes-closed-alert">
                 {{ alert.asset }} - Prix cible : {{ alert.target_price }} (fermé) - ID de l'alerte : {{ alert.id }}
-                - Date : {% if alert.closed_date %}{{ alert.closed_date.strftime('%Y-%m-%d %H:%M:%S') }}{% else %}{{ alert.open_date.strftime('%Y-%m-%d %H:%M:%S') }}{% endif %}
             </li>
             {% endfor %}
         </ul>

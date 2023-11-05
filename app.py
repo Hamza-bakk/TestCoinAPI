@@ -56,7 +56,6 @@ class Alert(db.Model):
     target_price = db.Column(db.Float, nullable=False)
     is_open = db.Column(db.Boolean, default=True)
     open_date = db.Column(db.DateTime, default=datetime.utcnow)  # Date d'ouverture
-    close_date = db.Column(db.DateTime, nullable=True)  # Date de fermeture (initialisée à None)
 
     def __init__(self, user_id, asset, target_price, is_open=True):
         self.user_id = user_id
@@ -207,8 +206,7 @@ def get_current_price(asset):
 def set_alert():
     asset = request.form.get('asset')
     target_price = float(request.form.get('target_price'))
-    open_date = db.Column(db.DateTime, default=datetime.utcnow)
-    close_date = db.Column(db.DateTime, nullable=True)
+
     is_open = True
 
     try:
@@ -216,31 +214,36 @@ def set_alert():
         if current_price is None:
             return redirect(url_for('erreur_assets'))
 
-        new_alert = Alert(user_id=current_user.id, asset=asset, open_date=open_date, close_date=close_date, target_price=target_price, is_open=is_open)
+        new_alert = Alert(user_id=current_user.id, asset=asset, target_price=target_price, is_open=is_open)
 
         # Si le Prix cible est supérieur au current price
         if target_price > current_price:
             # Passez l'alerte en "close" si le current price est égal ou supérieur au Prix cible
             if current_price >= target_price:
                 new_alert.is_open = False
+                new_alert.close_alert()
 
         # Si le Prix cible est inférieur au current price
         if target_price < current_price:
             # Passez l'alerte en "close" si le current price est inférieur ou égal au Prix cible
             if current_price <= target_price:
                 new_alert.is_open = False
-                
+
         db.session.add(new_alert)
         db.session.commit()
 
-        if not new_alert.is_open :
-            alert_message = f"Notification : Votre alerte {new_alert.id} a été exécutée le {close_date} qui a été ouverte le {open_date})"
-            print(alert_message)
-            with open('alerts.json', 'a') as log_file:
-                log_file.write(alert_message + '\n')
+        alert_message = f"Notification : Votre alerte {new_alert.id} a été {'créée' if is_open else 'exécutée'}"
+        print(alert_message)
+
+        with open('alerts_all.json', 'a') as log_file:
+            log_file.write(alert_message + '\n')
+
+        
+
         return redirect(url_for('mes_alertes'))
     except Exception as e:
         return redirect(url_for('erreur_assets'))
+
 
 
 @app.route('/mes_alertes')

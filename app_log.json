@@ -1,0 +1,20 @@
+2023-11-05 14:27:22,293 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2023-11-05 14:27:22,294 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2023-11-05 14:27:22,294 - werkzeug - INFO -  * Restarting with stat
+2023-11-05 14:27:23,069 - werkzeug - WARNING -  * Debugger is active!
+2023-11-05 14:27:23,070 - werkzeug - INFO -  * Debugger PIN: 118-205-925
+2023-11-05 14:27:24,511 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): rest.coinapi.io:443
+2023-11-05 14:27:25,001 - urllib3.connectionpool - DEBUG - https://rest.coinapi.io:443 "GET /v1/exchangerate/BTC/USD HTTP/1.1" 200 None
+2023-11-05 14:27:25,018 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): rest.coinapi.io:443
+2023-11-05 14:27:25,298 - urllib3.connectionpool - DEBUG - https://rest.coinapi.io:443 "GET /v1/exchangerate/BTC/USD HTTP/1.1" 429 None
+2023-11-05 14:27:25,301 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): rest.coinapi.io:443
+2023-11-05 14:27:25,528 - urllib3.connectionpool - DEBUG - https://rest.coinapi.io:443 "GET /v1/exchangerate/BTC/USD HTTP/1.1" 429 None
+2023-11-05 14:27:25,538 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): rest.coinapi.io:443
+2023-11-05 14:27:25,879 - urllib3.connectionpool - DEBUG - https://rest.coinapi.io:443 "GET /v1/exchangerate/BTC/USD HTTP/1.1" 429 None
+2023-11-05 14:27:25,882 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): rest.coinapi.io:443
+2023-11-05 14:27:26,111 - urllib3.connectionpool - DEBUG - https://rest.coinapi.io:443 "GET /v1/exchangerate/BTC/USD HTTP/1.1" 429 None
+2023-11-05 14:27:26,114 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): rest.coinapi.io:443
+2023-11-05 14:27:26,331 - urllib3.connectionpool - DEBUG - https://rest.coinapi.io:443 "GET /v1/exchangerate/BTC/USD HTTP/1.1" 429 None
+2023-11-05 14:27:26,383 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2023 14:27:26] "GET /mes_alertes HTTP/1.1" 200 -
+2023-11-05 14:27:27,021 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2023 14:27:27] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
