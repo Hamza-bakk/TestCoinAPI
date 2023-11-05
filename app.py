@@ -116,7 +116,26 @@ class EditAlertForm(FlaskForm):
     asset = StringField('Actif', validators=[InputRequired()])
     target_price = FloatField('Prix cible', validators=[InputRequired()])
 
-    
+
+def crypto_portfolio():
+    exchange_rates = {}
+
+    # Récupérer les taux de change pour chaque crypto-monnaie
+    for asset in assets:
+        url = f"https://rest.coinapi.io/v1/exchangerate/{asset}/USD"
+        headers = {
+            "X-CoinAPI-Key": api_key
+        }
+
+        response = requests.get(url, headers=headers)
+        data = response.json()
+        print(data)
+
+        if 'rate' in data:
+            exchange_rates[asset] = data['rate']
+
+    return exchange_rates
+
 @app.route("/")
 def accueil():
     exchange_rates = crypto_portfolio()
@@ -176,8 +195,8 @@ def set_alert_page():
 
 
 # api_key = "AE1B809C-03C8-4342-B9D4-5378A137F868"
-api_key = "9BDAF92C-3C94-4F06-B943-13B5D44A7EF6" 
-# api_key = "9F628E50-7639-4519-85EE-964B0191BBF6" 
+# api_key = "9BDAF92C-3C94-4F06-B943-13B5D44A7EF6" 
+api_key = "9F628E50-7639-4519-85EE-964B0191BBF6" 
 
 assets = ['BTC', 'ETH', 'XRP']
 
@@ -211,9 +230,11 @@ def mes_alertes():
     for alert in alerts:
         current_price = get_current_price(alert.asset)
         if current_price is not None:
-            if alert.is_open:  # Vérifiez que l'alerte est ouverte avant de la mettre à jour
+            if alert.is_open:
                 if alert.target_price >= current_price:
                     alert.is_open = False
+                elif alert.target_price < current_price:
+                    alert.is_open = True
 
     db.session.commit()  # Mettez à jour la base de données
     open_alerts = [alert for alert in alerts if alert.is_open]
@@ -253,28 +274,14 @@ def set_alert():
 
         new_alert = Alert(user_id=current_user.id, asset=asset, target_price=target_price, is_open=is_open)
 
-        # Si le Prix cible est supérieur au current price
-        if target_price > current_price:
-            # Passez l'alerte en "close" si le current price est égal ou supérieur au Prix cible
-            if current_price >= target_price:
-                new_alert.is_open = False
-
-        # Si le Prix cible est inférieur au current price
-        if target_price < current_price:
-            # Passez l'alerte en "close" si le current price est inférieur ou égal au Prix cible
-            if current_price <= target_price:
-                new_alert.is_open = False
-                
         db.session.add(new_alert)
         db.session.commit()
 
-        alert_message = f"Notification : Votre alerte {new_alert.id} a été {'créée' if is_open else 'exécutée'}"
+        alert_message = f"Notification : Votre alerte {new_alert.id} a été créée"
         print(alert_message)
 
         with open('alerts_open.json', 'a') as log_file:
             log_file.write(alert_message + '\n')
-
-        
 
         return redirect(url_for('mes_alertes'))
     except Exception as e:
@@ -313,24 +320,6 @@ def delete_alert(alert_id):
     return redirect(url_for('mes_alertes'))
 
 
-def crypto_portfolio():
-    exchange_rates = {}
-
-    # Récupérer les taux de change pour chaque crypto-monnaie
-    for asset in assets:
-        url = f"https://rest.coinapi.io/v1/exchangerate/{asset}/USD"
-        headers = {
-            "X-CoinAPI-Key": api_key
-        }
-
-        response = requests.get(url, headers=headers)
-        data = response.json()
-        print(data)
-
-        if 'rate' in data:
-            exchange_rates[asset] = data['rate']
-
-    return exchange_rates
 
 if __name__ == '__main__':
     app.run(debug=True)
