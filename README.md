@@ -81,14 +81,14 @@ $ exit()
 $ python3 app.py
 
 # The server will initialize at <http://localhost:5000>
+...
 
 
-## :memo: License ##
 
 This project is under license from MIT. For more details, see the [LICENSE](LICENSE.md) file.
 
 
-Made with :heart: by <a href="https://github.com/Hamza-bakk" target="_blank">Hamza And Thanks You</a>
+Made with :heart: by <a href="https://github.com/Hamza-bakk" target="_blank">Hamza =D And Thanks You</a>
 
 &#xa0;
 
