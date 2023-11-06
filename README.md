@@ -52,11 +52,6 @@ The following tools were used in this project:
 
 - [Manage-API] (https://docs.coinapi.io/) #This allows to generate the application
 
-- [Chat-GPT] 
-
-- [Model-and-coin-logical] (https://github.com/stevoslates/Crypto-Alert-Bot/blob/main/cryptoAlert.py)
-
-
 ## :white_check_mark: Requirements ##
 
 Before starting :checkered_flag:, you need to have [Git](https://git-scm.com)
