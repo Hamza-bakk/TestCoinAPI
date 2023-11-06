@@ -48,7 +48,7 @@ The following tools were used in this project:
 
 ## :rocket: Resources ##
 
-- [Manage-User] (https://github.comarpanneupane19Python-Flask-Authentication-Tutorial)
+- [Manage-User] [(https://github.com/arpanneupane19/Python-Flask-Authentication-Tutorial)](https://github.com/arpanneupane19/Python-Flask-Authentication-Tutorial)
 
 - [Manage-API] (https://docs.coinapi.io/) #This allows to generate the application
 
