@@ -16,7 +16,7 @@ from datetime import datetime
 from sqlalchemy.orm import Session
 import os
 
-
+#Dont forgit add API_Key 
 app = Flask(__name__)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
