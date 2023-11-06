@@ -8,20 +8,20 @@
 </head>
 
 <body>
-
+    
     {% include "navbar.html" %}
     <main> 
-    <div class="background-img-container">
-        <img src="{{ url_for('static', filename='images/btc.png') }}" class="background-img" alt="BTC Image">
-        <div class="text-overlay">Application de Suivi de Cryptomonnaie en local. Importez-la depuis <a href="https://github.com/Hamza-bakk/TestCoinAPI" target="_blank">GITHUB</a> et créez vos alertes avec une inscription rapide. Application sécurisée, robuste et facile d'utilisation.</div>
-    </div>
-
-    {% include "data.html" %}
-
-</main>
-
+        <div class="background-img-container">
+            <img src="{{ url_for('static', filename='images/btc.png') }}" class="background-img" alt="BTC Image">
+            <div class="text-overlay">Application de Suivi de Cryptomonnaie en local. Importez-la depuis <a href="https://github.com/Hamza-bakk/TestCoinAPI" target="_blank">GITHUB</a> et créez vos alertes avec une inscription rapide. Application sécurisée, robuste et facile d'utilisation.</div>
+        </div>
+        
+        {% include "data.html" %}
+        
+    </main>
+    
     {% include "footer.html" %}
-
-
+    
+    
 </body>
 </html>

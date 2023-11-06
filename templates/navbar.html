@@ -13,9 +13,9 @@
         </ul>
         <ul class="navbar-links-bis">
             {% if current_user.is_authenticated %}
-                <li><a href="{{ url_for('logout') }}">Se déconnecter</a></li>
+            <li><a href="{{ url_for('logout') }}">Se déconnecter</a></li>
             {% else %}
-                <li><a href="{{ url_for('login') }}">Se connecté</a></li>
+            <li><a href="{{ url_for('login') }}">Se connecté</a></li>
             {% endif %}
         </ul>
     </nav>
