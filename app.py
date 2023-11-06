@@ -54,21 +54,18 @@ class Alert(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     asset = db.Column(db.String(10), nullable=False)
+    current_price = db.Column(db.Float)
     target_price = db.Column(db.Float, nullable=False)
     is_open = db.Column(db.Boolean, default=True)
     open_date = db.Column(db.DateTime, default=datetime.utcnow)  # Date d'ouverture
 
-    def __init__(self, user_id, asset, target_price, is_open=True):
+    def __init__(self, user_id, asset, current_price, target_price, is_open=True):
         self.user_id = user_id
         self.asset = asset
+        self.current_price = current_price
         self.target_price = target_price
         self.is_open = is_open
         self.open_date = datetime.utcnow() if is_open else None
-        
-
-    def close_alert(self):
-        self.is_open = False
-        self.close_date = datetime.utcnow()
 
 
 login_manager.login_view = "login"
@@ -194,9 +191,10 @@ def set_alert_page():
 
 
 
-api_key = "AE1B809C-03C8-4342-B9D4-5378A137F868"
+# api_key = "AE1B809C-03C8-4342-B9D4-5378A137F868"
 # api_key = "9BDAF92C-3C94-4F06-B943-13B5D44A7EF6" 
 # api_key = "9F628E50-7639-4519-85EE-964B0191BBF6" 
+api_key = "60F8A35F-8603-4E56-8A20-8C82BBAA99EA"
 
 assets = ['BTC', 'ETH', 'XRP']
 
@@ -220,6 +218,41 @@ def get_current_price(asset):
         return None
     
 
+@app.route('/set_alert', methods=['POST'])
+@login_required
+def set_alert():
+    asset = request.form.get('asset')
+    target_price = float(request.form.get('target_price'))
+    is_open = True
+
+    try:
+        current_price = get_current_price(asset)
+        if current_price is None:
+            return redirect(url_for('erreur_assets'))
+
+        new_alert = Alert(
+            user_id=current_user.id,
+            asset=asset,
+            current_price=current_price,  # Ajoutez la valeur du current_price à l'alerte
+            target_price=target_price,
+            is_open=is_open
+        )
+
+        db.session.add(new_alert)
+        db.session.commit()
+
+        alert_message = f"Notification : Votre alerte {new_alert.id} a été créée avec un current_price de {current_price}"
+        print(alert_message)
+
+        with open('alerts_open.json', 'a') as log_file:
+            log_file.write(alert_message + '\n')
+
+        return redirect(url_for('mes_alertes'))
+    except Exception as e:
+        return redirect(url_for('erreur_assets'))
+
+
+
 @app.route('/mes_alertes')
 @login_required
 def mes_alertes():
@@ -228,16 +261,17 @@ def mes_alertes():
     alerts = Alert.query.filter_by(user_id=user.id).all()
 
     for alert in alerts:
-        current_price = get_current_price(alert.asset)
-        if current_price is not None:
+        current_price_live = get_current_price(alert.asset)
+        print(current_price_live)
+        if current_price_live is not None:
             if alert.is_open:
-                if alert.target_price > current_price:
+                if alert.target_price > alert.current_price:
                     # Passez l'alerte en "close" si le current price est égal ou supérieur au Prix cible
-                    if current_price >= alert.target_price:
+                    if current_price_live >= alert.target_price:
                         alert.is_open = False
-                elif alert.target_price < current_price:
+                elif alert.target_price < alert.current_price:
                     # Passez l'alerte en "close" si le current price est inférieur ou égal au Prix cible
-                    if current_price <= alert.target_price:
+                    if current_price_live <= alert.target_price:
                         alert.is_open = False
 
     db.session.commit()  # Mettez à jour la base de données
@@ -259,32 +293,7 @@ def mes_alertes():
     return render_template('mes_alertes.html', open_alerts=open_alerts, closed_alerts=closed_alerts)
 
 
-@app.route('/set_alert', methods=['POST'])
-@login_required
-def set_alert():
-    asset = request.form.get('asset')
-    target_price = float(request.form.get('target_price'))
-    is_open = True
 
-    try:
-        current_price = get_current_price(asset)
-        if current_price is None:
-            return redirect(url_for('erreur_assets'))
-
-        new_alert = Alert(user_id=current_user.id, asset=asset, target_price=target_price, is_open=is_open)
-
-        db.session.add(new_alert)
-        db.session.commit()
-
-        alert_message = f"Notification : Votre alerte {new_alert.id} a été créée"
-        print(alert_message)
-
-        with open('alerts_open.json', 'a') as log_file:
-            log_file.write(alert_message + '\n')
-
-        return redirect(url_for('mes_alertes'))
-    except Exception as e:
-        return redirect(url_for('erreur_assets'))
     
     
 
