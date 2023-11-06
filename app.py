@@ -190,12 +190,10 @@ def set_alert_page():
     return render_template('set_alert.html')
 
 
-
-# api_key = "AE1B809C-03C8-4342-B9D4-5378A137F868"
-# api_key = "9BDAF92C-3C94-4F06-B943-13B5D44A7EF6" 
-# api_key = "9F628E50-7639-4519-85EE-964B0191BBF6" 
+#ADD YOUR API_KEY 
 api_key = "60F8A35F-8603-4E56-8A20-8C82BBAA99EA"
 
+#ADD MOR ASSETS
 assets = ['BTC', 'ETH', 'XRP']
 
 @app.route('/erreur_assets.html')
@@ -257,7 +255,7 @@ def set_alert():
 @login_required
 def mes_alertes():
     user = current_user
-    # Mettez à jour l'état de toutes les alertes en fonction du prix actuel
+    # Mise à jour l'état de toutes les alertes en fonction du prix actuel
     alerts = Alert.query.filter_by(user_id=user.id).all()
 
     for alert in alerts:
@@ -266,11 +264,11 @@ def mes_alertes():
         if current_price_live is not None:
             if alert.is_open:
                 if alert.target_price > alert.current_price:
-                    # Passez l'alerte en "close" si le current price est égal ou supérieur au Prix cible
+                    # Passez l'alerte en "close" si le current price devient égal ou supérieur au Prix cible
                     if current_price_live >= alert.target_price:
                         alert.is_open = False
                 elif alert.target_price < alert.current_price:
-                    # Passez l'alerte en "close" si le current price est inférieur ou égal au Prix cible
+                    # Passez l'alerte en "close" si le current price devient inférieur ou égal au Prix cible
                     if current_price_live <= alert.target_price:
                         alert.is_open = False
 
@@ -291,10 +289,6 @@ def mes_alertes():
                 log_file.write(alert_message + '\n')
 
     return render_template('mes_alertes.html', open_alerts=open_alerts, closed_alerts=closed_alerts)
-
-
-
-    
     
 
 @app.route('/edit_alert/<int:alert_id>', methods=['GET', 'POST'])
