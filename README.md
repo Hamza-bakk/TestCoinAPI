@@ -1,5 +1,5 @@
 <div align="center" id="top"> 
-  <img src="./.github/app.gif" alt="Scraping" />
+  <img src="./.github/app.gif" alt="CoinAPI" />
 
   &#xa0;
 
@@ -59,7 +59,7 @@ The following tools were used in this project:
 
 ## :white_check_mark: Requirements ##
 
-Before starting :checkered_flag:, you need to have [Git](https://git-scm.com) and [Node](https://nodejs.org/en/) installed.
+Before starting :checkered_flag:, you need to have [Git](https://git-scm.com)
 
 ## :checkered_flag: Starting ##
 
@@ -81,14 +81,15 @@ $ exit()
 $ python3 app.py
 
 # The server will initialize at <http://localhost:5000>
-...
+```
 
 
+## :memo: License ##
 
 This project is under license from MIT. For more details, see the [LICENSE](LICENSE.md) file.
 
 
-Made with :heart: by <a href="https://github.com/Hamza-bakk" target="_blank">Hamza =D And Thanks You</a>
+Made with :heart: by <a href="https://github.com/Hamza-bakk" target="_blank">Hamza</a>
 
 &#xa0;
 
