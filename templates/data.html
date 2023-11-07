@@ -14,7 +14,13 @@
                 {% for asset, rate in exchange_rates.items() %}
                 <tr>
                     <td>{{ asset }}</td>
-                    <td>{{ "{:,.2f}".format(rate) }}</td>
+                    <td>
+                        {% if rate is not none %}
+                            {{ "{:,.2f}".format(rate) }}
+                        {% else %}
+                            Données non disponibles "Réessayez ultérieurement"
+                        {% endif %}
+                    </td>
                 </tr>
                 {% endfor %}
             </table>

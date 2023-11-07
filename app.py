@@ -114,24 +114,44 @@ class EditAlertForm(FlaskForm):
     target_price = FloatField('Prix cible', validators=[InputRequired()])
 
 
+#ADD YOUR API_KEY 
+api_key = "CA89529B-FA3C-44B1-B65D-3BED3D6AAE70"
+# api_key = "60F8A35F-8603-4E56-8A20-8C82BBAA99EA"
+
+#ADD MOR ASSETS
+assets = ['BTC', 'ETH', 'XRP']
+
+@app.route('/erreur_assets.html')
+def erreur_assets():
+    return render_template('erreur_assets.html')
+
+def get_current_price(asset):
+    url = f"https://rest.coinapi.io/v1/exchangerate/{asset}/USD"
+    headers = {
+        "X-CoinAPI-Key": api_key
+    }
+
+    response = requests.get(url, headers=headers)
+    data = response.json()
+    print(data)
+
+    if 'rate' in data:
+        return data['rate']
+    else:
+        return None
+    
+
 def crypto_portfolio():
     exchange_rates = {}
 
-    # Récupérer les taux de change pour chaque crypto-monnaie
+    # Récupérer les taux de change pour chaque crypto-monnaie par rapport 
     for asset in assets:
-        url = f"https://rest.coinapi.io/v1/exchangerate/{asset}/USD"
-        headers = {
-            "X-CoinAPI-Key": api_key
-        }
+        asset_data = get_current_price(asset)
 
-        response = requests.get(url, headers=headers)
-        data = response.json()
-        print(data)
-
-        if 'rate' in data:
-            exchange_rates[asset] = data['rate']
+        exchange_rates[asset] = asset_data
 
     return exchange_rates
+
 
 @app.route("/")
 def accueil():
@@ -157,6 +177,7 @@ def dashboard():
     return render_template('dashboard.html')
 
 
+
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     form = RegisterForm()
@@ -179,7 +200,6 @@ def logout():
     return redirect(url_for('login'))
 
 @app.route('/about')
-@login_required
 def about():
     return render_template('about.html')
 
@@ -190,31 +210,7 @@ def set_alert_page():
     return render_template('set_alert.html')
 
 
-#ADD YOUR API_KEY 
-api_key = "60F8A35F-8603-4E56-8A20-8C82BBAA99EA"
 
-#ADD MOR ASSETS
-assets = ['BTC', 'ETH', 'XRP']
-
-@app.route('/erreur_assets.html')
-def erreur_assets():
-    return render_template('erreur_assets.html')
-
-def get_current_price(asset):
-    url = f"https://rest.coinapi.io/v1/exchangerate/{asset}/USD"
-    headers = {
-        "X-CoinAPI-Key": api_key
-    }
-
-    response = requests.get(url, headers=headers)
-    data = response.json()
-    print(data)
-
-    if 'rate' in data:
-        return data['rate']
-    else:
-        return None
-    
 
 @app.route('/set_alert', methods=['POST'])
 @login_required
